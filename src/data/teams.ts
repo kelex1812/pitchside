@@ -298,7 +298,7 @@ export const wc2026Teams: Team[] = [
 // World Cup group stage fixtures: [date, homeId, awayId, venue]
 type GroupFixture = [string, string, string, string];
 
-const groupFixtures: Record<string, GroupFixture[]> = {
+export const groupFixtures: Record<string, GroupFixture[]> = {
   A: [
     ["2026-06-11T16:00:00-07:00", "usa", "uruguay", "SoFi Stadium, Los Angeles"],
     ["2026-06-11T13:00:00-05:00", "portugal", "algeria", "AT&T Stadium, Dallas"],

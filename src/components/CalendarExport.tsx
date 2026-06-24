@@ -17,7 +17,7 @@ function formatICSDate(isoDate: string): string {
     pad(d.getUTCDate()) +
     "T" +
     pad(d.getUTCHours()) +
-    pad(d.getUTCMonth()) +
+    pad(d.getUTCMinutes()) +
     pad(d.getUTCSeconds()) +
     "Z"
   );

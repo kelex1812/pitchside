@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
 
 export const metadata: Metadata = {
   title: "Pitchside — Club Teams & World Cup 2026 Dashboard",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-slate-950 text-slate-300 antialiased">
-        {children}
+        <ClientErrorBoundary>
+          {children}
+        </ClientErrorBoundary>
       </body>
     </html>
   );

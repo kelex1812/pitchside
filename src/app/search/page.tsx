@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { wc2026Teams, searchTeams } from "@/data/teams";
+import { allTeams, searchTeams } from "@/data/teams";
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
@@ -13,7 +13,7 @@ export default function SearchPage() {
   }, [query]);
 
   const allTeamsList = useMemo(
-    () => [...wc2026Teams].sort((a, b) => a.name.localeCompare(b.name)),
+    () => [...allTeams].sort((a, b) => a.name.localeCompare(b.name)),
     []
   );
 
@@ -56,7 +56,7 @@ export default function SearchPage() {
                     <div>
                       <h3 className="text-lg font-bold text-white">{team.name}</h3>
                       <p className="text-sm text-slate-400">
-                        Group {team.group} · FIFA #{team.fifaRank}
+                        {team.group ? `Group ${team.group} · FIFA #{team.fifaRank}` : team.leagueName || team.league}
                       </p>
                     </div>
                   </div>

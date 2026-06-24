@@ -1,4 +1,4 @@
-import { validGroups, wc2026Teams } from "@/data/teams";
+import { validGroups, wc2026Teams, groupFixtures, getTeamById } from "@/data/teams";
 
 interface GroupPageProps {
   params: Promise<{ letter: string }>;
@@ -81,30 +81,38 @@ export default async function GroupPage({ params }: GroupPageProps) {
                 </tr>
               </thead>
               <tbody>
-                {groupTeams.map((team) => {
-                  const teamMatches = team.schedule || [];
-                  return teamMatches.map((match, i) => {
-                    const isHome = match.homeTeamId === team.id;
-                    const opponent = match.opponent || "TBD";
-                    return (
-                      <tr key={match.date + i} className="border-b border-slate-800/50 last:border-0">
-                        <td className="px-4 py-3 text-slate-400">
-                          {match.stage && <span className="text-xs text-slate-500">{match.stage}</span>}
-                        </td>
-                        <td className={`px-4 py-3 ${isHome ? "text-white font-semibold" : "text-slate-400"}`}>
-                          {team.name}
-                        </td>
-                        <td className={`px-4 py-3 text-center ${!isHome ? "text-white font-semibold" : "text-slate-400"}`}>
-                          {opponent}
-                        </td>
-                        <td className="px-4 py-3 text-right text-slate-400">
-                          <div>{new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</div>
-                          <div className="text-xs text-slate-500">{match.venue}</div>
-                        </td>
-                      </tr>
-                    );
-                  });
-                })}
+                {(() => {
+                  const fixtures = groupFixtures[letter] || [];
+                  const seen = new Set<string>();
+                  return fixtures
+                    .filter(([date]) => {
+                      const key = `${date}-${date}`;
+                      if (seen.has(date)) return false;
+                      seen.add(date);
+                      return true;
+                    })
+                    .map(([date, homeId, awayId, venue]) => {
+                      const homeTeam = getTeamById(homeId);
+                      const awayTeam = getTeamById(awayId);
+                      return (
+                        <tr key={date} className="border-b border-slate-800/50 last:border-0">
+                          <td className="px-4 py-3 text-slate-400">
+                            Group Stage
+                          </td>
+                          <td className={`px-4 py-3 ${homeTeam && groupTeams.some(t => t.slug === homeTeam.slug) ? "text-white font-semibold" : "text-slate-400"}`}>
+                            {homeTeam?.flag} {homeTeam?.name}
+                          </td>
+                          <td className={`px-4 py-3 text-center ${awayTeam && groupTeams.some(t => t.slug === awayTeam.slug) ? "text-white font-semibold" : "text-slate-400"}`}>
+                            {awayTeam?.flag} {awayTeam?.name}
+                          </td>
+                          <td className="px-4 py-3 text-right text-slate-400">
+                            <div>{new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</div>
+                            <div className="text-xs text-slate-500">{venue}</div>
+                          </td>
+                        </tr>
+                      );
+                    });
+                })()}
               </tbody>
             </table>
           </div>

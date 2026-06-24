@@ -512,13 +512,13 @@ const final: KnockoutFixture[] = [
 export function searchTeams(query: string): Team[] {
   const q = query.toLowerCase().trim();
   if (!q) return [];
-  return wc2026Teams
+  return allTeams
     .filter((t) => t.name.toLowerCase().includes(q) || t.slug.includes(q))
     .slice(0, 8);
 }
 
 export function getTeamBySlug(slug: string): Team | undefined {
-  return wc2026Teams.find((t) => t.slug === slug);
+  return allTeams.find((t) => t.slug === slug);
 }
 
 export function getTeamById(id: string): Team | undefined {

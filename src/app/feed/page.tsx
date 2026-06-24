@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { allTeams, getMatchesForTeam, getTeamBySlug } from "@/data/teams";
+import { allTeams } from "@/data/teams";
 
 export default function FeedPage() {
   const followedTeamIds = typeof window !== "undefined"

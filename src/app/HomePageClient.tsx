@@ -56,15 +56,15 @@ export default function HomePageClient({
       <WeeklyStrip teams={[...clubTeams, ...nationalTeams]} />
 
       <div className="max-w-6xl mx-auto px-4 py-8 space-y-10 sm:space-y-12">
-        {/* 2. Followed Teams Section */}
-        <FollowedTeamsSection />
+      {/* 2. Page heading */}
+      <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+        FIFA World Cup 2026 &amp; Club Leagues Dashboard
+      </h1>
 
-        {/* 2.5. Page heading */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-          FIFA World Cup 2026 &amp; Club Leagues Dashboard
-        </h1>
+      {/* 3. Followed Teams Section */}
+      <FollowedTeamsSection />
 
-        {/* 3. World Cup 2026 Group Standings */}
+      {/* 4. World Cup 2026 Group Standings */}
         <section aria-label="World Cup 2026 Group Standings">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-cyan-400 inline-block" />

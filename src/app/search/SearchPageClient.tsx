@@ -151,7 +151,7 @@ export default function SearchPageClient() {
             )}
             <button
               onClick={() => { setFilterType("all"); setFilterLeague("all"); setFilterCompetition("all"); }}
-              className="text-sm text-slate-500 hover:text-white transition-colors min-h-[44px] flex items-center px-2"
+              className="text-sm text-slate-400 hover:text-white transition-colors min-h-[44px] flex items-center px-2"
             >
               Clear all
             </button>
@@ -160,7 +160,7 @@ export default function SearchPageClient() {
 
         {/* Results Count */}
         {results.length > 0 && (
-          <p className="text-sm text-slate-500 mb-4">
+          <p className="text-sm text-slate-400 mb-4">
             {results.length} team{results.length !== 1 ? "s" : ""} found
             {query.trim() && ` for "${query}"`}
           </p>

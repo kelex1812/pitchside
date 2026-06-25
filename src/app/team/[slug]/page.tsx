@@ -1,5 +1,6 @@
 // src/app/team/[slug]/page.tsx — Team Detail with League Badge & International Tab (Epic 3 + 4)
 import type { Metadata } from "next";
+import Script from "next/script";
 import { getLeagueBySlug, leagues } from "@/data/leagues";
 import { getTeamBySlug, allTeams } from "@/data/teams";
 import { notFound } from "next/navigation";
@@ -103,6 +104,40 @@ export default async function TeamDetail({ params }: { params: Promise<{ slug: s
 
   return (
     <>
+      {/* JSON-LD structured data */}
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: `${team.name}`,
+              description: `${team.name} — ${team.leagueName || team.league}${team.fifaRank ? `, FIFA Rank #${team.fifaRank}` : ""}`,
+              url: `https://pitchside.app/team/${team.slug}`,
+              hasBreadcrumb: {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                  { "@type": "ListItem", "position": 2, "name": "Teams" },
+                  { "@type": "ListItem", "position": 3, "name": team.name },
+                ],
+              },
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "SportsTeam",
+              name: team.name,
+              url: `https://pitchside.app/team/${team.slug}`,
+              sport: "Soccer",
+              description: `${team.name} — ${team.leagueName || team.league}${team.fifaRank ? `, FIFA Rank #${team.fifaRank}` : ""}. Club and international matches, standings, and news.`,
+              ...(team.fifaRank ? { rating: team.fifaRank } : {}),
+            },
+          ]),
+        }}
+      />
+
       {/* Header */}
       <header className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-3 sm:py-4">
@@ -228,7 +263,7 @@ function NextMatchCard({
 
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-900/60 px-4 py-4 sm:px-6 sm:py-6">
-      <p className="text-xs text-slate-500 uppercase tracking-wider font-medium mb-3">
+      <p className="text-xs text-slate-400 uppercase tracking-wider font-medium mb-3">
         Next Match
       </p>
       <div className="flex items-center gap-3 sm:gap-4">
@@ -264,7 +299,7 @@ function NextMatchCard({
               minute: "2-digit",
             })}
           </p>
-          <p className="text-xs text-slate-500 mt-1 truncate">{match.venue}</p>
+          <p className="text-xs text-slate-400 mt-1 truncate">{match.venue}</p>
         </div>
       </div>
     </div>
@@ -383,12 +418,12 @@ function MatchRow({
           {resultColor}
           <span className={`font-medium truncate text-sm sm:text-base ${isUpcoming ? "text-white" : "text-slate-300"}`}>
             vs {match.opponent || "TBD"}
-            <span className="text-slate-500 ml-1 text-xs sm:text-sm">({match.isHome ? "H" : "A"})</span>
+            <span className="text-slate-400 ml-1 text-xs sm:text-sm">({match.isHome ? "H" : "A"})</span>
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           {match.stage && (
-            <span className="text-xs text-slate-500 hidden sm:inline">{match.stage}</span>
+            <span className="text-xs text-slate-400 hidden sm:inline">{match.stage}</span>
           )}
           {match.score ? (
             <span className="text-sm font-bold text-white tabular-nums">
@@ -397,10 +432,10 @@ function MatchRow({
           ) : isUpcoming ? (
             <span className="text-xs sm:text-sm text-slate-400">{formattedTime}</span>
           ) : null}
-          <span className="text-xs text-slate-500 hidden sm:inline">{formattedDate}</span>
+          <span className="text-xs text-slate-400 hidden sm:inline">{formattedDate}</span>
         </div>
       </div>
-      <p className="text-xs text-slate-500 mt-2 truncate">{match.venue}</p>
+      <p className="text-xs text-slate-400 mt-2 truncate">{match.venue}</p>
     </div>
   );
 }
@@ -421,9 +456,9 @@ function StandingsCard({
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-slate-800">
-            <th className="text-left px-2 py-1.5 text-xs font-medium text-slate-500">#</th>
-            <th className="text-left px-2 py-1.5 text-xs font-medium text-slate-500">Team</th>
-            <th className="text-center px-2 py-1.5 text-xs font-medium text-slate-500">Pts</th>
+            <th className="text-left px-2 py-1.5 text-xs font-medium text-slate-400">#</th>
+            <th className="text-left px-2 py-1.5 text-xs font-medium text-slate-400">Team</th>
+            <th className="text-center px-2 py-1.5 text-xs font-medium text-slate-400">Pts</th>
           </tr>
         </thead>
         <tbody>
@@ -434,7 +469,7 @@ function StandingsCard({
                 s.team === teamName ? "bg-emerald-500/10" : ""
               }`}
             >
-              <td className="px-2 py-2 text-slate-500">{s.position}</td>
+              <td className="px-2 py-2 text-slate-400">{s.position}</td>
               <td className={`px-2 py-2 font-medium ${s.team === teamName ? "text-emerald-400" : "text-slate-300"}`}>
                 {s.team}
               </td>
@@ -498,19 +533,19 @@ function StatsCard({ team }: { team: { schedule?: Partial<import("@/data/types")
       <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <div>
           <p className="text-2xl font-bold text-white">{completed}</p>
-          <p className="text-xs text-slate-500">Completed</p>
+          <p className="text-xs text-slate-400">Completed</p>
         </div>
         <div>
           <p className="text-2xl font-bold text-white">{upcoming}</p>
-          <p className="text-xs text-slate-500">Upcoming</p>
+          <p className="text-xs text-slate-400">Upcoming</p>
         </div>
         <div>
           <p className="text-2xl font-bold text-emerald-400">{wins}</p>
-          <p className="text-xs text-slate-500">Wins</p>
+          <p className="text-xs text-slate-400">Wins</p>
         </div>
         <div>
           <p className="text-2xl font-bold text-red-400">{losses}</p>
-          <p className="text-xs text-slate-500">Losses</p>
+          <p className="text-xs text-slate-400">Losses</p>
         </div>
       </div>
       {draws > 0 && (
@@ -518,7 +553,7 @@ function StatsCard({ team }: { team: { schedule?: Partial<import("@/data/types")
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-xl font-bold text-amber-400">{draws}</p>
-              <p className="text-xs text-slate-500">Draws</p>
+              <p className="text-xs text-slate-400">Draws</p>
             </div>
           </div>
         </div>

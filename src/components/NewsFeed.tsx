@@ -11,17 +11,17 @@ export default function NewsFeed({ news }: NewsFeedProps) {
   if (!news || news.length === 0) {
     return (
       <div>
-        <h3 className="text-xs text-slate-500 uppercase tracking-wider font-medium mb-3">
+        <h3 className="text-xs text-slate-400 uppercase tracking-wider font-medium mb-3">
           Latest News
         </h3>
-        <p className="text-sm text-slate-500 italic">No news items available.</p>
+        <p className="text-sm text-slate-400 italic">No news items available.</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h3 className="text-xs text-slate-500 uppercase tracking-wider font-medium mb-3">
+      <h3 className="text-xs text-slate-400 uppercase tracking-wider font-medium mb-3">
         Latest News
       </h3>
       <ul className="space-y-3" role="list">
@@ -42,7 +42,7 @@ export default function NewsFeed({ news }: NewsFeedProps) {
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-xs text-emerald-400">{item.source}</span>
                     <span className="text-xs text-slate-600" aria-hidden="true">.</span>
-                    <span className="text-xs text-slate-500">{item.publishedAt}</span>
+                    <span className="text-xs text-slate-400">{item.publishedAt}</span>
                   </div>
                 </div>
                 <span className="text-slate-600 text-sm group-hover:text-slate-400 transition-colors flex-shrink-0" aria-hidden="true">{"\u2192"}</span>

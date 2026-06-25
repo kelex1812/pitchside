@@ -104,7 +104,7 @@ export default function Dashboard() {
 
       {/* Footer */}
       <footer className="border-t border-slate-800 bg-slate-900/30 mt-12">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-slate-500">
+        <div className="max-w-6xl mx-auto px-4 py-6 text-center text-sm text-slate-400">
           <p>Data is seeded with 2026 season information. Last updated: June 2026.</p>
         </div>
       </footer>
@@ -113,7 +113,7 @@ export default function Dashboard() {
 }
 
 function TeamCard({ team }: { team: Team }) {
-  const tag = team.nextMatch
+  const tag = team.nextMatch?.date
     ? new Date(team.nextMatch.date).getTime() - new Date().getTime()
     : undefined;
 
@@ -142,7 +142,6 @@ function TeamCard({ team }: { team: Team }) {
               width={56}
               height={56}
               className="rounded-lg object-contain"
-              unoptimized
             />
           ) : (
             <span className="text-4xl">{team.flag || "\u26BD"}</span>
@@ -174,7 +173,7 @@ function TeamCard({ team }: { team: Team }) {
                   LIVE
                 </div>
               ) : isUpcoming ? (
-                <CountdownRing days={days} hours={hours} teamColor={team.primaryColor} />
+                <CountdownRing match={{ kickoff: team.nextMatch?.date ?? '', status: "upcoming" }} size="sm" />
               ) : (
                 <div
                   className="w-14 h-14 rounded-full flex items-center justify-center text-xs font-bold text-slate-400 bg-slate-800"
@@ -185,7 +184,7 @@ function TeamCard({ team }: { team: Team }) {
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Next Match</p>
+              <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Next Match</p>
               <p className="text-lg font-semibold text-white mt-0.5">
                 vs {team.nextMatch.opponent || "TBD"}
                 <span className="text-slate-400 font-normal text-sm ml-2">

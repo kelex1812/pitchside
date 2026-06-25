@@ -1,5 +1,5 @@
 import { generateContentForTeam } from "@/data/teams";
-import type { Team } from "@/data/types";
+import type { ContentItem, Team } from "@/data/types";
 
 interface ContentFeedProps {
   team: Team;
@@ -33,12 +33,12 @@ export default function ContentFeed({ team }: ContentFeedProps) {
             >
               {item.type === "preview" ? "PREVIEW" : "RECAP"}
             </span>
-            <span className="text-xs text-slate-500">{item.publishedAt}</span>
+            <span className="text-xs text-slate-400">{item.publishedAt}</span>
           </div>
           <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
           <p className="text-sm text-slate-400 leading-relaxed">{item.body}</p>
           {item.score && (
-            <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+            <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
               <span>Score: {item.score.home} - {item.score.away}</span>
               <span>·</span>
               <span>{item.venue}</span>

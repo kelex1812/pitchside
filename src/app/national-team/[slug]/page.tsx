@@ -1,5 +1,6 @@
 // src/app/national-team/[slug]/page.tsx — National Team Detail
 import type { Metadata } from "next";
+import Script from "next/script";
 import { getTeamBySlug, allTeams } from "@/data/teams";
 import { notFound } from "next/navigation";
 import NationalTeamHeader from "@/components/NationalTeamHeader";
@@ -62,6 +63,42 @@ export default async function NationalTeamDetail({ params }: { params: Promise<{
 
   return (
     <>
+      {/* JSON-LD structured data */}
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: `${team.name} — International`,
+              description: `${team.name} international team: matches, tournaments, and squad.`,
+              url: `https://pitchside.app/national-team/${team.slug}`,
+              hasBreadcrumb: {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                  { "@type": "ListItem", "position": 2, "name": "International" },
+                  { "@type": "ListItem", "position": 3, "name": team.name },
+                ],
+              },
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "SportsTeam",
+              name: team.name,
+              url: `https://pitchside.app/national-team/${team.slug}`,
+              sport: "Soccer",
+              description: `${team.name} international team: matches, tournaments, and squad.`,
+              ...(team.fifaRank ? { rating: team.fifaRank } : {}),
+              ...(team.caps !== undefined ? { numberOfPlayerCaps: team.caps } : {}),
+              ...(team.goals !== undefined ? { numberOfPlayerGoals: team.goals } : {}),
+            },
+          ]),
+        }}
+      />
+
       <NationalTeamHeader team={team} />
 
       <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
@@ -71,18 +108,18 @@ export default async function NationalTeamDetail({ params }: { params: Promise<{
             {team.caps !== undefined && (
               <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 sm:p-4 text-center">
                 <p className="text-xl sm:text-2xl font-bold text-white">{team.caps}</p>
-                <p className="text-xs text-slate-500 uppercase tracking-wider mt-1">Caps</p>
+                <p className="text-xs text-slate-400 uppercase tracking-wider mt-1">Caps</p>
               </div>
             )}
             {team.goals !== undefined && (
               <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 sm:p-4 text-center">
                 <p className="text-xl sm:text-2xl font-bold text-emerald-400">{team.goals}</p>
-                <p className="text-xs text-slate-500 uppercase tracking-wider mt-1">Goals</p>
+                <p className="text-xs text-slate-400 uppercase tracking-wider mt-1">Goals</p>
               </div>
             )}
             <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 sm:p-4 text-center">
               <p className="text-xl sm:text-2xl font-bold text-cyan-400">{team.fifaRank || "—"}</p>
-              <p className="text-xs text-slate-500 uppercase tracking-wider mt-1">FIFA Rank</p>
+              <p className="text-xs text-slate-400 uppercase tracking-wider mt-1">FIFA Rank</p>
             </div>
           </div>
         )}

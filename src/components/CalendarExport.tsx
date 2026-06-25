@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Team } from "@/data/teams";
+import type { Team } from "@/data/types";
 import { allTeams } from "@/data/teams";
 
 interface CalendarExportProps {
@@ -45,14 +45,15 @@ export default function CalendarExport({ teams: propTeams }: CalendarExportProps
 
       const schedule = team.schedule || [];
       for (const match of schedule) {
-        const opponent = match.opponent || "";
+        // Use current Match type: homeTeamId/awayTeamId to determine home/away, homeTeam/awayTeam for display
+        const isHomeMatch = match.homeTeamId === team.id;
+        const opponentName = isHomeMatch ? match.awayTeam ?? match.awayTeamName ?? "" : match.homeTeam ?? match.homeTeamName ?? "";
         matches.push({
-          date: match.date,
-          homeTeam: match.isHome ? team.name : opponent,
-          awayTeam: match.isHome ? opponent : team.name,
+          date: match.date ?? "",
+          homeTeam: isHomeMatch ? team.name : opponentName,
+          awayTeam: isHomeMatch ? opponentName : team.name,
           stage: match.stage || "Friendly",
           venue: match.venue || "TBD",
-          group: match.group,
         });
       }
     }
@@ -144,7 +145,7 @@ export default function CalendarExport({ teams: propTeams }: CalendarExportProps
             ))}
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500">{selectedTeamIds.length} selected</span>
+            <span className="text-xs text-slate-400">{selectedTeamIds.length} selected</span>
             <button
               onClick={handleExport}
               disabled={selectedTeamIds.length === 0}

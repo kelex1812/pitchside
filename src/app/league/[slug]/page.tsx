@@ -1,4 +1,5 @@
 // src/app/league/[slug]/page.tsx — League Detail (Epic 3)
+import Script from "next/script";
 import { getLeagueBySlug } from "@/data/leagues";
 import { notFound } from "next/navigation";
 import LeagueHeader from "@/components/LeagueHeader";
@@ -61,6 +62,31 @@ export default async function LeagueDetail({ params }: { params: Promise<{ slug:
 
   return (
     <>
+      {/* JSON-LD structured data */}
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: league.name,
+              description: `${league.country}'s top football league — standings, fixtures, and teams.`,
+              url: `https://pitchside.app/league/${league.slug}`,
+              hasBreadcrumb: {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                  { "@type": "ListItem", "position": 2, "name": "Leagues" },
+                  { "@type": "ListItem", "position": 3, "name": league.name },
+                ],
+              },
+            },
+          ]),
+        }}
+      />
+
       <LeagueHeader league={league} />
 
       <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8">

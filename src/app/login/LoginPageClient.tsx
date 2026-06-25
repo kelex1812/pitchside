@@ -56,8 +56,8 @@ function LoginContent() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
+    <>
+      <div className="w-full max-w-md min-h-screen bg-slate-950 flex items-center justify-center px-4">
         {/* Logo */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
@@ -98,7 +98,7 @@ function LoginContent() {
           {/* Divider */}
           <div className="flex items-center gap-4 my-6">
             <div className="flex-1 h-px bg-slate-800" />
-            <span className="text-xs text-slate-500 uppercase">or</span>
+            <span className="text-xs text-slate-400 uppercase">or</span>
             <div className="flex-1 h-px bg-slate-800" />
           </div>
 
@@ -125,7 +125,7 @@ function LoginContent() {
           Anonymous follows are saved locally.
         </p>
       </div>
-    </main>
+    </>
   );
 }
 
@@ -134,7 +134,7 @@ export default function LoginPageClient() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="text-slate-500">Loading...</div>
+        <div className="text-slate-400">Loading...</div>
       </div>
     }>
       <LoginContent />

@@ -8,6 +8,9 @@ import LoginPageClient from "./LoginPageClient";
 export const metadata: Metadata = {
   title: "Sign In | Pitchside",
   description: "Sign in to Pitchside to sync your followed teams across devices.",
+  alternates: {
+    canonical: "/login",
+  },
   openGraph: {
     title: "Sign In | Pitchside",
     description: "Sign in to Pitchside to sync your followed teams across devices.",

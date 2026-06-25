@@ -14,6 +14,9 @@ import HomePageClient from "./HomePageClient";
 export const metadata: Metadata = {
   title: "Home — Club Teams & World Cup 2026 | Pitchside",
   description: "Track all 48 FIFA World Cup 2026 teams, club leagues, and your favorite teams. Live scores, standings, schedules, and news — all in one dashboard.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Pitchside — Club Teams & World Cup 2026 Dashboard",
     description: "Track all 48 FIFA World Cup 2026 teams, club leagues, and your favorite teams.",

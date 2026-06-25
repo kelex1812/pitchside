@@ -7,6 +7,9 @@ import FeedPageClient from "./FeedPageClient";
 export const metadata: Metadata = {
   title: "My Feed — Pitchside",
   description: "Your personalized feed of followed teams' matches and updates.",
+  alternates: {
+    canonical: "/feed",
+  },
   openGraph: {
     title: "My Feed | Pitchside",
     description: "Your personalized feed of followed teams' matches and updates.",

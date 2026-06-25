@@ -6,6 +6,9 @@ import LeaguesPageClient from "./LeaguesPageClient";
 export const metadata: Metadata = {
   title: "Football Leagues | Pitchside",
   description: "Browse professional football leagues worldwide. Find standings, fixtures, and teams for Premier League, La Liga, Serie A, Bundesliga, Ligue 1, MLS, and more.",
+  alternates: {
+    canonical: "/leagues",
+  },
   openGraph: {
     title: "Football Leagues | Pitchside",
     description: "Browse professional football leagues worldwide.",

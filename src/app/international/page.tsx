@@ -6,6 +6,9 @@ import InternationalPageClient from "./InternationalPageClient";
 export const metadata: Metadata = {
   title: "International Football | Pitchside",
   description: "World Cup, European Championship, Copa America, and more. Follow all international tournaments with standings, fixtures, and team squads.",
+  alternates: {
+    canonical: "/international",
+  },
   openGraph: {
     title: "International Football | Pitchside",
     description: "World Cup, European Championship, Copa America, and more.",

@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: TeamDetailPageProps): Promise
   return {
     title: `${team.name} | Pitchside`,
     description: `${team.name} — ${team.leagueName || team.league}${team.fifaRank ? `, FIFA Rank #${team.fifaRank}` : ""}`,
+    alternates: {
+      canonical: `/team/${slug}`,
+    },
     openGraph: {
       title: `${team.name} | Pitchside`,
       description: `${team.name} club and international matches, standings, and news.`,

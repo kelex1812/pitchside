@@ -28,6 +28,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${league.name} | Pitchside`,
     description: `${league.country}'s top football league — standings, fixtures, and teams.`,
+    alternates: {
+      canonical: `/league/${slug}`,
+    },
     openGraph: {
       title: `${league.name} | Pitchside`,
       description: `${league.name} — ${league.country}'s top football league.`,

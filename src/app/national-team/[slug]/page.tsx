@@ -19,6 +19,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${team.name} — International | Pitchside`,
     description: `${team.name} international team: matches, tournaments, and squad.`,
+    alternates: {
+      canonical: `/national-team/${slug}`,
+    },
     openGraph: {
       title: `${team.name} — International | Pitchside`,
       description: `${team.name} international matches and tournaments.`,

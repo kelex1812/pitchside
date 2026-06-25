@@ -6,6 +6,9 @@ import SearchPageClient from "./SearchPageClient";
 export const metadata: Metadata = {
   title: "Search Teams | Pitchside",
   description: "Search for club teams, national teams, and leagues. Find team schedules, standings, and news.",
+  alternates: {
+    canonical: "/search",
+  },
   openGraph: {
     title: "Search Teams | Pitchside",
     description: "Search for club teams, national teams, and leagues.",

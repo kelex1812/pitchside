@@ -20,6 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<{ letter: s
   return {
     title: `Group ${letter} — FIFA World Cup 2026 | Pitchside`,
     description: `FIFA World Cup 2026 Group ${letter}: ${teamNames}. Standings, fixtures, and team profiles.`,
+    alternates: {
+      canonical: `/group/${letter}`,
+    },
     openGraph: {
       title: `Group ${letter} — FIFA World Cup 2026 | Pitchside`,
       description: `FIFA World Cup 2026 Group ${letter}: ${teamNames}.`,

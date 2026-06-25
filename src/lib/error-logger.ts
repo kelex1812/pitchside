@@ -17,6 +17,45 @@ export type ErrorContext = Record<string, any>;
 
 let _sentryDsn: string | null = null;
 
+// Field names that should NEVER be sent to Sentry (PII protection)
+const SENSITIVE_KEYS = new Set([
+  "password", "secret", "token", "key", "credential", "authorization",
+  "auth", "passwd", "api_key", "apikey", "apiKey", "access_token",
+  "refresh_token", "session", "ssn", "credit_card", "cc",
+]);
+
+/**
+ * Sanitize an error context object by redacting sensitive field values.
+ * Prevents PII from being leaked to Sentry error reports.
+ */
+function sanitizeContext(context: ErrorContext): ErrorContext {
+  const sanitized: ErrorContext = {};
+
+  for (const [key, value] of Object.entries(context)) {
+    const lowerKey = key.toLowerCase();
+
+    // Skip if the key looks sensitive
+    if (SENSITIVE_KEYS.has(lowerKey)) {
+      sanitized[key] = "[REDACTED]";
+      continue;
+    }
+
+    // Recursively sanitize nested objects
+    if (value !== null && typeof value === "object" && !Array.isArray(value)) {
+      sanitized[key] = sanitizeContext(value as ErrorContext);
+    } else if (Array.isArray(value)) {
+      sanitized[key] = value.map((item: unknown) =>
+        item !== null && typeof item === "object" ? sanitizeContext(item as ErrorContext) : item
+      );
+    } else {
+      // Primitives are passed through as-is (they should be safe identifiers, not PII)
+      sanitized[key] = value;
+    }
+  }
+
+  return sanitized;
+}
+
 // Dynamically check for Sentry DSN to avoid build failures if @sentry/nextjs isn't installed.
 function getSentryDsn(): string | null {
   if (_sentryDsn !== null) return _sentryDsn;
@@ -86,6 +125,7 @@ function extractErrorInfo(value: unknown): { message: string; stack: string | nu
 
 /**
  * Log an error to Sentry (if configured) and/or console.
+ * Context is sanitized to prevent PII leaks before being sent to Sentry.
  * Always calls console.warn in development as a safety net.
  */
 export async function logError(
@@ -94,9 +134,12 @@ export async function logError(
 ): Promise<void> {
   const { message, stack } = extractErrorInfo(error);
 
+  // Sanitize context to remove PII before sending to Sentry
+  const safeContext = sanitizeContext(context);
+
   // Always log to console in development
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[ErrorLogger]', { message, stack, context });
+    console.warn('[ErrorLogger]', { message, stack, context: safeContext });
     return;
   }
 
@@ -106,7 +149,7 @@ export async function logError(
     const errObj = error instanceof Error ? error : new Error(message);
     sentry.captureException(errObj, {
       tags: { app: 'pitchside' },
-      extra: context,
+      extra: safeContext,
     });
     return;
   }
@@ -115,19 +158,22 @@ export async function logError(
   console.warn('[ErrorLogger] Sentry not configured — error logged locally:', {
     message,
     stack,
-    context,
+    context: safeContext,
   });
 }
 
 /**
  * Log a non-error warning (e.g., degraded functionality).
+ * Context is sanitized to prevent PII leaks.
  */
 export async function logWarning(
   message: string,
   context: ErrorContext = {},
 ): Promise<void> {
+  const safeContext = sanitizeContext(context);
+
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[ErrorLogger]', message, context);
+    console.warn('[ErrorLogger]', message, safeContext);
     return;
   }
 
@@ -136,10 +182,10 @@ export async function logWarning(
     sentry.captureMessage(message, {
       level: 'warning',
       tags: { app: 'pitchside' },
-      extra: context,
+      extra: safeContext,
     });
     return;
   }
 
-  console.warn('[ErrorLogger]', message, context);
+  console.warn('[ErrorLogger]', message, safeContext);
 }

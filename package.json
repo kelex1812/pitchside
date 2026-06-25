@@ -2,6 +2,10 @@
   "name": "pitchside",
   "version": "0.1.0",
   "private": true,
+  "overrides": {
+    "postcss": "^8.5.10",
+    "uuid": "^11.1.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,6 +16,7 @@
     "@sentry/nextjs": "^10.60.0",
     "date-fns": "^4.4.0",
     "next": "16.2.9",
+    "next-auth": "^4.24.14",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

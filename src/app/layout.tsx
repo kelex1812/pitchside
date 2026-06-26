@@ -53,6 +53,10 @@ export const metadata: Metadata = {
       "Unified sports dashboard tracking club teams and all 48 FIFA World Cup 2026 teams with schedules, standings, and news.",
     images: ["/og-default.png"],
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

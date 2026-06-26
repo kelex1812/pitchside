@@ -7,6 +7,8 @@ All notable changes to this project are documented in this file.
 ### Added
 - **JSON-LD structured data on all 13 routes** — Injected `application/ld+json` scripts via plain `<script>` tags (not `next/script`, which prevented server-side rendering) in every route page. Covers: `Organization` (in `layout.tsx`, rendered on every page), `WebPage` with `BreadcrumbList` (on all pages), `SportsPortal` (homepage), `SportsTeam` (team/[slug] and national-team/[slug] pages), and `SportsEvent` (tournament/[slug] and group/[letter] pages).
 
+- **SEO: Favicon metadata and sitemap** — Added `icons` field to root `layout.tsx` metadata export, declaring `/favicon.ico` (icon) and `/apple-touch-icon.png` (apple touch icon). Created `public/` directory with placeholder image files. Added Next.js App Router sitemap route (`src/app/sitemap.ts`) exposing 5 public static routes: homepage (priority 1.0), /leagues, /international (both 0.9), /search (0.8), and /login (0.5). Excluded /feed and /account (auth-gated, noindex) and all dynamic team/league/tournament routes which are served via client-side routing.
+
 ### Fixed
 - **SEO: Homepage title alignment** — Aligned page `<title>`, `og:title`, and `twitter:title` to the same value: "Club Teams & World Cup 2026 | Pitchside". Previously the page title started with "Home —" while OG/Twitter started with "Pitchside —", causing inconsistent branding across SERP and social shares.
 

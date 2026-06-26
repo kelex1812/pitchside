@@ -167,6 +167,9 @@ export default function AccountPageClient() {
             >
               {saved ? "Saved ✓" : "Save"}
             </button>
+            <span className="sr-only" role="status" aria-live="polite">
+              {saved ? "Timezone saved successfully" : ""}
+            </span>
           </form>
         </section>
 
@@ -176,11 +179,12 @@ export default function AccountPageClient() {
             Followed Teams ({followedTeamData.length})
           </h2>
 
-          {followedTeamData.length === 0 ? (
-            <p className="text-sm text-slate-400">
-              You haven&apos;t followed any teams yet. Browse teams to start following.
-            </p>
-          ) : (
+          <div aria-live="polite" role="status">
+            {followedTeamData.length === 0 ? (
+              <p className="text-sm text-slate-400">
+                You haven&apos;t followed any teams yet. Browse teams to start following.
+              </p>
+            ) : (
             <div className="space-y-2">
               {followedTeamData.map((team) => (
                 <div
@@ -203,6 +207,7 @@ export default function AccountPageClient() {
               ))}
             </div>
           )}
+          </div>
         </section>
 
         {/* Notifications Placeholder */}

@@ -64,17 +64,19 @@ export default function InternationalPageClient() {
 
         {/* Tournament Grid */}
         <div className="mt-8">
-          {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Skeleton.TournamentCard />
-              <Skeleton.TournamentCard />
-              <Skeleton.TournamentCard />
-            </div>
-          ) : filteredTournaments.length === 0 ? (
-            <EmptyState.Search />
-          ) : (
-            <TournamentGrid tournaments={filteredTournaments} />
-          )}
+          <div aria-live="polite" role="status">
+            {isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Skeleton.TournamentCard />
+                <Skeleton.TournamentCard />
+                <Skeleton.TournamentCard />
+              </div>
+            ) : filteredTournaments.length === 0 ? (
+              <EmptyState.Search />
+            ) : (
+              <TournamentGrid tournaments={filteredTournaments} />
+            )}
+          </div>
         </div>
       </div>
     </>

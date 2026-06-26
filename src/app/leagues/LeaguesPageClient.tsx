@@ -53,20 +53,22 @@ export default function LeaguesPageClient() {
         </div>
 
         {/* League Grid */}
-        {!isLoaded ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Skeleton.LeagueCard />
-            <Skeleton.LeagueCard />
-            <Skeleton.LeagueCard />
-            <Skeleton.LeagueCard />
-          </div>
-        ) : (
-          <LeagueGrid
-            leagues={leagues}
-            searchQuery={searchQuery}
-            filterType={filterType}
-          />
-        )}
+        <div aria-live="polite" role="status">
+          {!isLoaded ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Skeleton.LeagueCard />
+              <Skeleton.LeagueCard />
+              <Skeleton.LeagueCard />
+              <Skeleton.LeagueCard />
+            </div>
+          ) : (
+            <LeagueGrid
+              leagues={leagues}
+              searchQuery={searchQuery}
+              filterType={filterType}
+            />
+          )}
+        </div>
       </div>
     </>
   );

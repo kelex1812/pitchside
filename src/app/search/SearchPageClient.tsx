@@ -158,16 +158,17 @@ export default function SearchPageClient() {
           </div>
         )}
 
-        {/* Results Count */}
-        {results.length > 0 && (
-          <p className="text-sm text-slate-400 mb-4">
-            {results.length} team{results.length !== 1 ? "s" : ""} found
-            {query.trim() && ` for "${query}"`}
-          </p>
-        )}
+        {/* Results Count & Search Results */}
+        <div aria-live="polite" role="status">
+          {results.length > 0 && (
+            <p className="text-sm text-slate-400 mb-4">
+              {results.length} team{results.length !== 1 ? "s" : ""} found
+              {query.trim() && ` for "${query}"`}
+            </p>
+          )}
 
-        {/* Search Results */}
-        {!isLoaded ? (
+          {/* Search Results */}
+          {!isLoaded ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Skeleton.TeamCard />
             <Skeleton.TeamCard />
@@ -249,6 +250,7 @@ export default function SearchPageClient() {
             </div>
           </section>
         )}
+        </div>
       </div>
     </>
   );

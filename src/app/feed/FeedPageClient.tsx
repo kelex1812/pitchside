@@ -55,13 +55,14 @@ export default function FeedPageClient() {
       <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
         {/* Auth notification */}
         {!user && notification !== null && (
-          <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
+          <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm" role="alert">
             {notification}
           </div>
         )}
 
         {/* Followed teams list */}
-        {loading ? (
+        <div aria-live="polite" role="status">
+          {loading ? (
           <div className="space-y-4">
             <Skeleton.TeamCard />
             <Skeleton.TeamCard />
@@ -148,6 +149,7 @@ export default function FeedPageClient() {
             ))}
           </div>
         )}
+        </div>
       </div>
     </>
   );

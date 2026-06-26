@@ -61,7 +61,7 @@ export default function FeedPageClient() {
         )}
 
         {/* Followed teams list */}
-        <div aria-live="polite" role="status">
+        <div aria-busy={loading} aria-live="polite" role="status">
           {loading ? (
           <div className="space-y-4">
             <Skeleton.TeamCard />

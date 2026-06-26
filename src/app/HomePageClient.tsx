@@ -65,7 +65,7 @@ export default function HomePageClient({
       <FollowedTeamsSection />
 
       {/* 4. World Cup 2026 Group Standings */}
-        <section aria-label="World Cup 2026 Group Standings">
+        <section aria-label="World Cup 2026 Group Standings" aria-busy={isInitialLoad} aria-live="polite" role="status">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-cyan-400 inline-block" />
             FIFA World Cup 2026 — Group Stage

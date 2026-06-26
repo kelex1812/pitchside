@@ -64,7 +64,7 @@ export default function InternationalPageClient() {
 
         {/* Tournament Grid */}
         <div className="mt-8">
-          <div aria-live="polite" role="status">
+          <div aria-busy={isLoading} aria-live="polite" role="status">
             {isLoading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Skeleton.TournamentCard />

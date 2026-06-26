@@ -159,7 +159,7 @@ export default function SearchPageClient() {
         )}
 
         {/* Results Count & Search Results */}
-        <div aria-live="polite" role="status">
+        <div aria-busy={!isLoaded} aria-live="polite" role="status">
           {results.length > 0 && (
             <p className="text-sm text-slate-400 mb-4">
               {results.length} team{results.length !== 1 ? "s" : ""} found

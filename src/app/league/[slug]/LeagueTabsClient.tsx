@@ -34,7 +34,7 @@ export default function LeagueTabsClient({ league, matches, matchesByMatchday, t
     <>
       <LeagueTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className="mt-6">
+      <div className="mt-6" aria-busy={!isLoaded} aria-live="polite" role="status">
         {!isLoaded ? (
           <Skeleton.LeagueTabsContent />
         ) : activeTab === "standings" && league.standings && league.standings.length > 0 ? (

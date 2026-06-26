@@ -53,7 +53,7 @@ export default function LeaguesPageClient() {
         </div>
 
         {/* League Grid */}
-        <div aria-live="polite" role="status">
+        <div aria-busy={!isLoaded} aria-live="polite" role="status">
           {!isLoaded ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Skeleton.LeagueCard />

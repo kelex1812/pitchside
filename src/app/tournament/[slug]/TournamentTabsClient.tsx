@@ -88,7 +88,7 @@ export default function TournamentTabsClient({ tournament, teams, bracket }: Tou
         onTabChange={setActiveTab}
       />
 
-      <div className="mt-6" role="tabpanel" id={`panel-${activeTab}`} aria-labelledby={`${activeTab}-tab`}>
+      <div className="mt-6" role="tabpanel" id={`panel-${activeTab}`} aria-labelledby={`${activeTab}-tab`} aria-busy={!isLoaded} aria-live="polite">
         {!isLoaded ? (
           <Skeleton.TournamentTabsContent />
         ) : activeTab === "groups" && groupStandings.length > 0 ? (

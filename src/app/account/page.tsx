@@ -7,6 +7,10 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Account | Pitchside",
   description: "Manage your profile, timezone preferences, and followed teams.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/account",
   },

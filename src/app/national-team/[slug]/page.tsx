@@ -1,6 +1,5 @@
 // src/app/national-team/[slug]/page.tsx — National Team Detail
 import type { Metadata } from "next";
-import Script from "next/script";
 import { getTeamBySlug, allTeams } from "@/data/teams";
 import { notFound } from "next/navigation";
 import NationalTeamHeader from "@/components/NationalTeamHeader";
@@ -67,7 +66,7 @@ export default async function NationalTeamDetail({ params }: { params: Promise<{
   return (
     <>
       {/* JSON-LD structured data */}
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
@@ -77,15 +76,17 @@ export default async function NationalTeamDetail({ params }: { params: Promise<{
               name: `${team.name} — International`,
               description: `${team.name} international team: matches, tournaments, and squad.`,
               url: `https://pitchside.app/national-team/${team.slug}`,
-              hasBreadcrumb: {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
-                  { "@type": "ListItem", "position": 2, "name": "International" },
-                  { "@type": "ListItem", "position": 3, "name": team.name },
-                ],
-              },
+              breadcrumb: { "@id": "#breadcrumb" },
+            },
+            {
+              "@id": "#breadcrumb",
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                { "@type": "ListItem", "position": 2, "name": "International", "item": "https://pitchside.app/international" },
+                { "@type": "ListItem", "position": 3, "name": team.name },
+              ],
             },
             {
               "@context": "https://schema.org",

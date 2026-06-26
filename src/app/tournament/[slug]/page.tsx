@@ -1,5 +1,4 @@
 // src/app/tournament/[slug]/page.tsx — Tournament Detail (Epic 4)
-import Script from "next/script";
 import { getTournamentBySlug, getKnockoutBracket } from "@/lib/data/tournament";
 import { notFound } from "next/navigation";
 import TournamentBanner from "@/components/TournamentBanner";
@@ -58,7 +57,7 @@ export default async function TournamentDetail({ params }: { params: Promise<{ s
   return (
     <>
       {/* JSON-LD structured data */}
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
@@ -68,15 +67,17 @@ export default async function TournamentDetail({ params }: { params: Promise<{ s
               name: tournament.name,
               description: `${tournament.name}: ${stageNames}. Live standings, fixtures, and bracket coverage.`,
               url: `https://pitchside.app/tournament/${tournament.slug}`,
-              hasBreadcrumb: {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
-                  { "@type": "ListItem", "position": 2, "name": "International" },
-                  { "@type": "ListItem", "position": 3, "name": tournament.name },
-                ],
-              },
+              breadcrumb: { "@id": "#breadcrumb" },
+            },
+            {
+              "@id": "#breadcrumb",
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                { "@type": "ListItem", "position": 2, "name": "International", "item": "https://pitchside.app/international" },
+                { "@type": "ListItem", "position": 3, "name": tournament.name },
+              ],
             },
             {
               "@context": "https://schema.org",

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { notFound } from "next/navigation";
 import { validGroups, wc2026Teams, groupFixtures, getTeamById } from "@/data/teams";
 import EmptyState from "@/components/EmptyState";
@@ -45,7 +44,7 @@ export default async function GroupPage({ params }: GroupPageProps) {
   return (
     <>
       {/* JSON-LD structured data */}
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
@@ -55,16 +54,18 @@ export default async function GroupPage({ params }: GroupPageProps) {
               name: `Group ${letter} — FIFA World Cup 2026`,
               description: `FIFA World Cup 2026 Group ${letter}: ${groupTeams.map((t) => t.name).join(", ")}. Standings, fixtures, and team profiles.`,
               url: `https://pitchside.app/group/${letter}`,
-              hasBreadcrumb: {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
-                  { "@type": "ListItem", "position": 2, "name": "International" },
-                  { "@type": "ListItem", "position": 3, "name": "Groups" },
-                  { "@type": "ListItem", "position": 4, "name": `Group ${letter}` },
-                ],
-              },
+              breadcrumb: { "@id": "#breadcrumb" },
+            },
+            {
+              "@id": "#breadcrumb",
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                { "@type": "ListItem", "position": 2, "name": "International", "item": "https://pitchside.app/international" },
+                { "@type": "ListItem", "position": 3, "name": "Groups", "item": "https://pitchside.app/groups" },
+                { "@type": "ListItem", "position": 4, "name": `Group ${letter}` },
+              ],
             },
             {
               "@context": "https://schema.org",

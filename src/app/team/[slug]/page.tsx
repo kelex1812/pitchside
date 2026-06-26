@@ -1,6 +1,5 @@
 // src/app/team/[slug]/page.tsx — Team Detail with League Badge & International Tab (Epic 3 + 4)
 import type { Metadata } from "next";
-import Script from "next/script";
 import { getLeagueBySlug, leagues } from "@/data/leagues";
 import { getTeamBySlug, allTeams } from "@/data/teams";
 import { notFound } from "next/navigation";
@@ -108,7 +107,7 @@ export default async function TeamDetail({ params }: { params: Promise<{ slug: s
   return (
     <>
       {/* JSON-LD structured data */}
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
@@ -118,15 +117,17 @@ export default async function TeamDetail({ params }: { params: Promise<{ slug: s
               name: `${team.name}`,
               description: `${team.name} — ${team.leagueName || team.league}${team.fifaRank ? `, FIFA Rank #${team.fifaRank}` : ""}`,
               url: `https://pitchside.app/team/${team.slug}`,
-              hasBreadcrumb: {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
-                  { "@type": "ListItem", "position": 2, "name": "Teams" },
-                  { "@type": "ListItem", "position": 3, "name": team.name },
-                ],
-              },
+              breadcrumb: { "@id": "#breadcrumb" },
+            },
+            {
+              "@id": "#breadcrumb",
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                { "@type": "ListItem", "position": 2, "name": "Teams", "item": "https://pitchside.app/teams" },
+                { "@type": "ListItem", "position": 3, "name": team.name },
+              ],
             },
             {
               "@context": "https://schema.org",

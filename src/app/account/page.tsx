@@ -1,7 +1,6 @@
 // Account Page — User profile, timezone, followed teams list, notifications placeholder
 // Protected route: requires authentication
 import type { Metadata } from "next";
-import Script from "next/script";
 import AccountPageClient from "./AccountPageClient";
 import Footer from "@/components/Footer";
 
@@ -25,7 +24,7 @@ export default function AccountPage() {
   return (
     <>
       {/* JSON-LD structured data */}
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
@@ -35,14 +34,16 @@ export default function AccountPage() {
               name: "Account",
               description: "Manage your profile, timezone preferences, and followed teams.",
               url: "https://pitchside.app/account",
-              hasBreadcrumb: {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
-                  { "@type": "ListItem", "position": 2, "name": "Account" },
-                ],
-              },
+              breadcrumb: { "@id": "#breadcrumb" },
+            },
+            {
+              "@id": "#breadcrumb",
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+                { "@type": "ListItem", "position": 2, "name": "Account", "item": "https://pitchside.app/account" },
+              ],
             },
           ]),
         }}

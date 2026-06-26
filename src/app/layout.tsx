@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
 import AuthProvider from "@/components/AuthProvider";
@@ -64,11 +63,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-slate-950 text-slate-300 antialiased">
-        <Script
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
+              "@id": "https://pitchside.app/#organization",
               "@type": "Organization",
               name: "Pitchside",
               url: "https://pitchside.app",

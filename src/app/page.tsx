@@ -1,6 +1,5 @@
 // src/app/page.tsx — Homepage (Epic 2)
 import type { Metadata } from "next";
-import Script from "next/script";
 import { allTeams, getGroupStandings } from "@/data/teams";
 import { leagues } from "@/data/leagues";
 import { getTournamentState } from "@/lib/data/tournaments";
@@ -38,7 +37,7 @@ export default function HomePage() {
   return (
     <>
       {/* JSON-LD structured data */}
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
@@ -48,13 +47,15 @@ export default function HomePage() {
               name: "Pitchside — Club Teams & World Cup 2026 Dashboard",
               description: "Track all 48 FIFA World Cup 2026 teams, club leagues, and your favorite teams. Live scores, standings, schedules, and news — all in one dashboard.",
               url: "https://pitchside.app",
-              hasBreadcrumb: {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
-                ],
-              },
+              breadcrumb: { "@id": "#breadcrumb" },
+            },
+            {
+              "@id": "#breadcrumb",
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pitchside.app" },
+              ],
             },
             {
               "@context": "https://schema.org",

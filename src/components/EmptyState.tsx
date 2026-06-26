@@ -63,7 +63,7 @@ export default function EmptyState({
   const sizeClass = compact ? "py-8 px-4" : "py-16 px-4";
 
   return (
-    <div className={`text-center ${sizeClass}`}>
+    <div className={`text-center ${sizeClass}`} role="status" aria-live="polite">
       <div className="mb-4">{iconEl}</div>
       <h3 className={`font-semibold text-white ${compact ? "text-base" : "text-lg"} mb-2`}>
         {title}

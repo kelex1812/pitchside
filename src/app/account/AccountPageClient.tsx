@@ -185,9 +185,9 @@ export default function AccountPageClient() {
                 You haven&apos;t followed any teams yet. Browse teams to start following.
               </p>
             ) : (
-            <div className="space-y-2">
+            <ul className="space-y-2" role="list">
               {followedTeamData.map((team) => (
-                <div
+                <li
                   key={team.id}
                   className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors min-h-[44px]"
                 >
@@ -203,9 +203,9 @@ export default function AccountPageClient() {
                       {team.leagueName || team.group ? `Group ${team.group}` : ""}
                     </p>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
           </div>
         </section>

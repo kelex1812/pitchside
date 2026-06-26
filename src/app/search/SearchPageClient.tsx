@@ -176,10 +176,10 @@ export default function SearchPageClient() {
             <Skeleton.TeamCard />
           </div>
         ) : results.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" role="list">
             {results.map((team) => (
-              <Link
-                key={team.id}
+              <li key={team.id} role="listitem">
+                <Link
                 href={`/team/${team.slug}`}
                 className="block p-4 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all group min-h-[80px] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 tabIndex={0}
@@ -213,8 +213,9 @@ export default function SearchPageClient() {
                   </div>
                 </div>
               </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : query.trim() ? (
           <EmptyState.Search query={query} />
         ) : null}
@@ -223,10 +224,10 @@ export default function SearchPageClient() {
         {!isLoaded ? null : !query.trim() && results.length > 0 && (
           <section className="mt-12">
             <h2 className="text-lg font-semibold text-white mb-4">All Teams</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" role="list">
               {results.map((team) => (
-                <Link
-                  key={team.id}
+                <li key={team.id} role="listitem">
+                  <Link
                   href={`/team/${team.slug}`}
                   className="flex items-center gap-3 p-3 rounded-lg border border-slate-800 bg-slate-900/40 hover:border-slate-700 transition-all group min-h-[48px]"
                 >
@@ -246,8 +247,9 @@ export default function SearchPageClient() {
                     {team.name}
                   </span>
                 </Link>
+              </li>
               ))}
-            </div>
+            </ul>
           </section>
         )}
         </div>

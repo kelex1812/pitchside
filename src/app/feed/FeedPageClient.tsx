@@ -78,9 +78,9 @@ export default function FeedPageClient() {
             secondaryText="Search Teams"
           />
         ) : (
-          <div className="space-y-3 sm:space-y-4">
+          <ul className="space-y-3 sm:space-y-4" role="list">
             {sortedTeams.map((team) => (
-              <div
+              <li
                 key={team.id}
                 className="rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur-sm overflow-hidden hover:border-slate-700 transition-all"
                 style={{
@@ -145,9 +145,9 @@ export default function FeedPageClient() {
                     </div>
                   </div>
                 )}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
         </div>
       </div>
